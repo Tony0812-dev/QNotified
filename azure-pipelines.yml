@@ -77,69 +77,13 @@ jobs:
   steps:
   - checkout: none
   - download: current
-    artifact: APK
-  - task: AppCenterDistribute@3
-    displayName: AppCenter Canary
-    inputs:
-      serverEndpoint: 'QNotified'
-      appSlug: 'QNotifiedDev/QNotified'
-      appFile: '$(Pipeline.Workspace)/APK/*.apk'
-      symbolsOption: 'Android'
-      releaseNotesOption: 'input'
-      releaseNotesInput: '$(Build.SourceVersionMessage)'
-      destinationType: 'groups'
-      distributionGroupId: 'c7a5954e-6861-438f-ad02-fb765d4d889f'
-  - task: AppCenterDistribute@3
-    displayName: AppCenter Weekly
-    condition: contains(variables['Build.SourceVersionMessage'], 'release')
-    inputs:
-      serverEndpoint: 'QNotified'
-      appSlug: 'QNotifiedDev/QNotified'
-      appFile: '$(Pipeline.Workspace)/APK/*.apk'
-      symbolsOption: 'Android'
-      releaseNotesOption: 'input'
-      releaseNotesInput: '$(Build.SourceVersionMessage)'
-      destinationType: 'groups'
-      distributionGroupId: '8a11cc3e-47da-4e3b-84e7-ac306a128aaf'
-  - task: GitHubRelease@1
-    displayName: LSPosed Release CI
-    condition: and(succeeded(),not(contains(variables['Build.SourceVersionMessage'], 'release')))
-    inputs:
-      gitHubConnection: 'github.com_singleNeuron'
-      repositoryName: 'Xposed-Modules-Repo/nil.nadph.qnotified'
-      action: 'create'
-      target: '$(Build.SourceVersion)'
-      tagSource: 'userSpecifiedTag'
-      tag: $(Build.BuildNumber)
-      title: '$(Build.SourceVersion)'
-      releaseNotesSource: 'inline'
-      releaseNotesInline: '$(Build.SourceVersionMessage)'
-      assets: '$(Pipeline.Workspace)/APK/*.apk'
-      isPreRelease: true
-      changeLogCompareToRelease: 'lastNonDraftRelease'
-      changeLogType: 'commitBased'
-  - task: GitHubRelease@1
-    displayName: LSPosed Release Weekly
-    condition: and(succeeded(),contains(variables['Build.SourceVersionMessage'], 'release'))
-    inputs:
-      gitHubConnection: 'github.com_singleNeuron'
-      repositoryName: 'Xposed-Modules-Repo/nil.nadph.qnotified'
-      action: 'create'
-      target: '$(Build.SourceVersion)'
-      tagSource: 'userSpecifiedTag'
-      tag: $(Build.BuildNumber)
-      title: '$(Build.SourceVersionMessage)'
-      releaseNotesSource: 'inline'
-      releaseNotesInline: '$(Build.SourceVersionMessage)'
-      assets: '$(Pipeline.Workspace)/APK/*.apk'
-      changeLogCompareToRelease: 'lastNonDraftRelease'
-      changeLogType: 'commitBased'
+    artifact: APK'
   - task: GitHubRelease@1
     displayName: Github Release Weekly
     condition: contains(variables['Build.SourceVersionMessage'], 'release')
     inputs:
       gitHubConnection: 'github.com_singleNeuron'
-      repositoryName: 'ferredoxin/QNotified'
+      repositoryName: 'Tony0812-dev/QNotified'
       action: 'create'
       target: '$(Build.SourceVersion)'
       tagSource: 'userSpecifiedTag'
